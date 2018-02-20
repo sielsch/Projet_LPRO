@@ -5,38 +5,40 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeController">
    <children>
-      <TextField fx:id="numBadgeText" layoutX="193.0" layoutY="41.0" prefHeight="25.0" prefWidth="67.0" promptText="Emp ID" />
-      <Label layoutX="194.0" layoutY="21.0" text="Employee ID" />
+      <TextField fx:id="numBadgeText" layoutX="229.0" layoutY="41.0" prefHeight="25.0" prefWidth="67.0" promptText="N°Badge" />
+      <Label layoutX="224.0" layoutY="21.0" text="N°Badge" />
 <!--       <Button fx:id="searchEmpBtn" layoutX="194.0" layoutY="70.0" mnemonicParsing="false" onAction="#searchEmployee" prefHeight="25.0" prefWidth="56.0" text="Search" /> -->
       <Button fx:id="deleteEmpBtn" layoutX="332.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteEmployee" prefHeight="25.0" prefWidth="56.0" text="Delete" />
 <!--       <Button fx:id="updateEmpBtn" layoutX="263.0" layoutY="70.0" mnemonicParsing="false" onAction="#updateEmployeeEmail" prefHeight="25.0" prefWidth="56.0" text="Update" /> -->
-      <Button fx:id="addEmpBtn" layoutX="82.0" layoutY="114.0" mnemonicParsing="false" onAction="#insertEmployee" text="Add Employee" />
+      <Button fx:id="addEmpBtn" layoutX="44.0" layoutY="159.0" mnemonicParsing="false" onAction="#insertEmployee" text="Add Employee" />
       <TextArea fx:id="resultArea" layoutX="7.0" layoutY="250.0" prefHeight="85.0" prefWidth="167.0" wrapText="true" />
       <Label layoutX="9.0" layoutY="231.0" text="Result Console">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <TextField fx:id="newEmailText" layoutX="268.0" layoutY="41.0" prefHeight="25.0" prefWidth="120.0" promptText="new email" />
-      <Label layoutX="270.0" layoutY="21.0" text="New Email" />
-      <VBox layoutX="97.0" layoutY="24.0" spacing="4.0">
+      <TextField fx:id="newEmailText" layoutX="307.0" layoutY="41.0" prefHeight="25.0" prefWidth="120.0" promptText="Nom" />
+      <Label layoutX="313.0" layoutY="21.0" text="Nom" />
+      <VBox layoutX="111.0" layoutY="24.0" prefHeight="120.0" prefWidth="85.0" spacing="4.0">
          <children>
-            <TextField fx:id="nomText" prefHeight="25.0" prefWidth="79.0" promptText="Name" />
-            <TextField fx:id="prenomText" prefHeight="25.0" prefWidth="79.0" promptText="Surname" />
-            <TextField fx:id="passwordText" prefHeight="25.0" prefWidth="79.0" promptText="email" />
+            <TextField fx:id="numBadgeText" prefHeight="27.0" prefWidth="32.0" promptText="N° Badge" />
+            <TextField fx:id="nomText" prefHeight="25.0" prefWidth="79.0" promptText="Nom" />
+            <TextField fx:id="prenomText" prefHeight="25.0" prefWidth="79.0" promptText="Prénom" />
+            <TextField fx:id="passwordText" prefHeight="25.0" prefWidth="79.0" promptText="psw" />
          </children>
       </VBox>
-      <VBox layoutX="9.0" layoutY="28.0" prefWidth="67.0" spacing="12.0">
+      <VBox layoutX="9.0" layoutY="28.0" prefHeight="120.0" prefWidth="85.0" spacing="12.0">
          <children>
-            <Label text="Name" />
-            <Label text="Surname" />
+            <Label text="N° Badge" />
+            <Label text="Nom" />
+            <Label text="Prénom" />
             <Label text="Mot de passe " />
          </children>
       </VBox>
       <Separator layoutY="14.0" prefHeight="4.0" prefWidth="600.0" />
-      <Separator layoutX="180.0" layoutY="14.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
-      <TableView fx:id="employeTable" editable="true" layoutX="193.0" layoutY="102.0" prefHeight="234.0" prefWidth="430.0" tableMenuButtonVisible="true">
+      <Separator layoutX="202.0" layoutY="14.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
+      <TableView fx:id="employeTable" editable="true" layoutX="229.0" layoutY="102.0" prefHeight="234.0" prefWidth="435.0" tableMenuButtonVisible="true">
         <columns>
             <TableColumn fx:id="numBadgeColumn" prefWidth="57.0" text="Badge" />
           <TableColumn fx:id="nomColumn" prefWidth="51.0" text="Nom" />
@@ -46,6 +48,7 @@
             <TableColumn fx:id="libelleFonctionColumn" prefWidth="130.0" text="libelle Fonction" />
         </columns>
       </TableView>
-      <Button fx:id="searchEmpsBtn" layoutX="396.0" layoutY="70.0" mnemonicParsing="false" onAction="#searchEmployees" prefHeight="25.0" prefWidth="139.0" text="Search All Employees" />
+      <Button fx:id="searchEmpsBtn" layoutX="396.0" layoutY="70.0" mnemonicParsing="false" onAction="#searchEmployees" prefHeight="27.0" prefWidth="202.0" text="Afficher tout les Employés" />
+      <Button fx:id="searchEmploye" layoutX="447.0" layoutY="41.0" mnemonicParsing="false" text="Rechercher" onAction="#searchEmploye" />
    </children>
 </AnchorPane>

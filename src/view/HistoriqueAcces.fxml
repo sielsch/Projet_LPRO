@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AutorisationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HistoriqueController">
    <children>
       <TextField fx:id="numBadgeText" layoutX="193.0" layoutY="41.0" prefHeight="25.0" prefWidth="67.0" promptText="Emp ID" />
       <Label layoutX="194.0" layoutY="21.0" text="Badge" />
@@ -35,15 +35,16 @@
       </VBox>
       <Separator layoutY="14.0" prefHeight="4.0" prefWidth="600.0" />
       <Separator layoutX="180.0" layoutY="14.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
-      <TableView fx:id="autorisationTable" editable="true" layoutX="193.0" layoutY="102.0" prefHeight="234.0" prefWidth="393.0" tableMenuButtonVisible="true">
+      <TableView fx:id="historiqueTable" editable="true" layoutX="193.0" layoutY="102.0" prefHeight="234.0" prefWidth="393.0" tableMenuButtonVisible="true">
         <columns>
-            <TableColumn fx:id="numBadgeAutorisationColumn" prefWidth="57.0" text="Badge" />
-          <TableColumn fx:id="nomAutorisationColumn" prefWidth="75.0" text="Nom" />
-          <TableColumn fx:id="libelleZoneAutorisationColumn" prefWidth="126.0" text="Zone Autorisée" />
-            <TableColumn fx:id="numZoneAutorisationColumn" prefWidth="75.0" text="N°Zone" />
+            <TableColumn fx:id="numBadgeHistoriqueColumn" prefWidth="57.0" text="Badge" />
+          <TableColumn fx:id="nomHistoriqueColumn" prefWidth="49.0" text="Nom" />
+          <TableColumn fx:id="libelleZoneHistoriqueColumn" prefWidth="103.0" text="Zone Autorisée" />
+            <TableColumn fx:id="numZoneHistoriqueColumn" prefWidth="90.0" text="N°Zone" />
+            <TableColumn fx:id="dateAccesHistoriqueColumn" prefWidth="109.0" text="Date Acces" />
         </columns>
       </TableView>
-      <Button fx:id="searchEmpsBtn" layoutX="447.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchAutorisations" prefHeight="25.0" prefWidth="139.0" text="Voir Autorisations" />
+      <Button fx:id="searchHistoriqueBtn" layoutX="447.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchHistoriques" prefHeight="25.0" prefWidth="139.0" text="Voir Autorisations" />
       <Button layoutX="300.0" layoutY="68.0" mnemonicParsing="false" text="Employe" />
       <Button layoutX="381.0" layoutY="68.0" mnemonicParsing="false" text="Zone" />
       <Label layoutX="197.0" layoutY="73.0" text="Recherche par" />

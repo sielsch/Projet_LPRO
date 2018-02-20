@@ -26,6 +26,10 @@ public class EmployeController {
     @FXML
     private TextField passwordText;
     @FXML
+    private TextField numBadgeTextSearch;
+    @FXML
+    private TextField nomSearch;
+    @FXML
     private TableView<Employe> employeTable;
     @FXML
     private TableColumn<Employe, String>  numBadgeColumn;
@@ -70,8 +74,17 @@ public class EmployeController {
     @FXML
     private void searchEmploye (ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
         try {
-            //Get Employee information
-            Employe emp = EmployeDAO.searchEmploye(numBadgeText.getText());
+        	Employe emp = EmployeDAO.searchEmploye(numBadgeText.getText());
+//            //Get Employee information
+//        	if(!numBadgeTextSearch.getText().equals("") && nomSearch.getText().equals("")){
+//        		System.out.println("chaine non vide");
+//        		emp = EmployeDAO.searchEmploye(numBadgeText.getText());
+//        	} else if (numBadgeTextSearch.getText().equals("") && !nomSearch.getText().equals("")) {
+//        		
+//        	} else if (!numBadgeTextSearch.getText().equals("") && !nomSearch.getText().equals("")){
+//        		
+//        	}
+             
             //Populate Employee on TableView and Display on TextArea
             populateAndShowEmploye(emp);
         } catch (SQLException e) {
@@ -140,7 +153,7 @@ public class EmployeController {
     @FXML
     private void insertEmployee (ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         try {
-            EmployeDAO.insertEmp("10",nomText.getText(),prenomText.getText(),passwordText.getText(),1);
+            EmployeDAO.insertEmp(numBadgeText.getText(),nomText.getText(),prenomText.getText(),passwordText.getText(),1);
             resultArea.setText("Employee inserted! \n");
         } catch (SQLException e) {
             resultArea.setText("Problem occurred while inserting employee " + e);

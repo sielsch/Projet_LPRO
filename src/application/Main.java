@@ -39,6 +39,7 @@ public class Main extends Application {
 		// 3) Display the EmployeeOperations View
 		showEmployeeView();
 		showAutorisationView();
+		showHistoriqueView();
 		rootLayout.setCenter(tabLayout);
 	}
 
@@ -64,6 +65,22 @@ public class Main extends Application {
 			// Third, show the primary stage
 			primaryStage.show(); // Display the primary stage
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showHistoriqueView(){
+		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("/view/HistoriqueAcces.fxml"));
+			AnchorPane historiqueOperationsView = (AnchorPane) loader.load();
+			
+			Tab tabHistorique = new Tab("Historique", historiqueOperationsView);
+			tabLayout.getTabs().add(tabHistorique);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -103,7 +120,7 @@ public class Main extends Application {
 			loaderAutorisation.setLocation(Main.class.getResource("/view/AutorisationView.fxml"));
 			AnchorPane AutorisationOperationsView;
 			AutorisationOperationsView = (AnchorPane) loaderAutorisation.load();
-			Tab tabAutorisation = new Tab("employe", AutorisationOperationsView);
+			Tab tabAutorisation = new Tab("Autorisation", AutorisationOperationsView);
 			tabLayout.getTabs().add(tabAutorisation);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

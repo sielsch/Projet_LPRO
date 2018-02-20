@@ -8,13 +8,13 @@ import javafx.beans.property.StringProperty;
 public class Autorisation {
 
 	private StringProperty numBadge;
-	private StringProperty name;
+	private StringProperty nom;
 	private IntegerProperty numZone;
 	private StringProperty libelleZone;
 	
 	public Autorisation(){
 		numBadge= new SimpleStringProperty();
-		name=new SimpleStringProperty();
+		nom=new SimpleStringProperty();
 		numZone = new SimpleIntegerProperty();
 		libelleZone= new SimpleStringProperty();
 	}
@@ -34,16 +34,16 @@ public class Autorisation {
 	
 	
 	
-	public String getName(){
+	public String getNom(){
 		return numBadge.get();
 	}
 	
-	public void setName(String name){
-		this.name.set(name);
+	public void setNom(String nom){
+		this.nom.set(nom);
 	}
 	
-	public StringProperty nameProperty(){
-		return name;
+	public StringProperty nomProperty(){
+		return nom;
 	}
 	
 	

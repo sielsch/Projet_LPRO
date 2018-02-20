@@ -115,7 +115,7 @@ public class EmployeDAO{
 	                        "(numBadge, nom, prenom, password, idFonction)\n" +
 	                        "VALUES\n" +
 	                        "('"+numBadge+"', '"+nom+"', '"+prenom+"','"+password+"','"+idFonction+"');\n";
-	 System.out.println(insert);
+
 
 	        try {
 	            DBUtil.dbExecuteUpdate(insert);
