@@ -70,12 +70,12 @@ public class BadgeTest {
                     idBadge = idBadge.replaceAll(",", "");
                     console.println("[ID] = " + idBadge);
                     String statement = "SELECT * FROM AutorisationAcces WHERE numBadge=\"" + idBadge + "\" AND idZone=" + IDZONE + ";";
-                    console.println(statement);
                     List<String[]> values = (ArrayList<String[]>) DBUtil.dbExecuteQueryRasp(statement);
-                    String[] value = values.get(0);
+                   
                     if (values.size() == 1) {
-                        if (value[0].equals(idBadge) && value[0].equals(IDZONE.toString())) {
-                            console.box("accès autorisé");
+                     String[] value = values.get(0);
+                        if (value[0].equals(idBadge) && value[1].equals(IDZONE.toString())) {                        
+                            console.box("ACCESS GRANTED");
                             DBUtil.insertHistoriqueNow(idBadge,IDZONE);
                             Runtime rt = Runtime.getRuntime();                            
                             Process snap = rt.exec("raspivid --timeout 10000 --output ../video" + IDVideo + ".h264");
@@ -86,7 +86,7 @@ public class BadgeTest {
                             System.out.println("--> green LED state should be : OFF and security video taken");
                         } else {
                             redLED.toggle();
-                            console.box("accès refusé");
+                            console.box("ACCESS DENIED weird");
                             System.out.println("--> red LED state should be: ON");
                             Thread.sleep(2000);
                             redLED.toggle();
@@ -94,7 +94,7 @@ public class BadgeTest {
 
                     } else {
                         redLED.toggle();
-                        console.box("accès refusé");
+                        console.box("ACCESS DENIED");
                         System.out.println("--> red LED state should be: ON");
                         Thread.sleep(2000);
                         redLED.toggle();

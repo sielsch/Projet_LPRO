@@ -116,7 +116,6 @@ public class DBUtil {
             rs = stmt.executeQuery(queryStmt);
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
-            System.out.println(columnsNumber + " columns");
             Values = new ArrayList<>();
             while (rs.next()) {
                 StringArray = new String[columnsNumber];
