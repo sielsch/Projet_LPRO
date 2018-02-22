@@ -11,8 +11,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
-public class BadgeTest {
+public class BadgeVerif {
 
     /**
      * This example program supports the following optional command
@@ -25,8 +26,7 @@ public class BadgeTest {
      * @throws InterruptedException
      * @throws IOException
      */
-    //ID VIDEO
-    private static int IDVideo;
+    //ID ZONE 
     private static final Integer IDZONE = 1;
 
     public static void main(String args[]) throws InterruptedException, IOException {
@@ -53,7 +53,6 @@ public class BadgeTest {
         // create an instance of the serial communications class
         final Serial serial = SerialFactory.createInstance();
 
-        IDVideo = 0;
 // create and register the serial data listener
         serial.addListener(new SerialDataEventListener() {
             @Override
@@ -77,9 +76,9 @@ public class BadgeTest {
                         if (value[0].equals(idBadge) && value[1].equals(IDZONE.toString())) {                        
                             console.box("ACCESS GRANTED");
                             DBUtil.insertHistoriqueNow(idBadge,IDZONE);
-                            Runtime rt = Runtime.getRuntime();                            
-                            Process snap = rt.exec("raspivid --timeout 10000 --output ../video" + IDVideo + ".h264");
-                            IDVideo++;
+                            Runtime rt = Runtime.getRuntime();
+                            String date = getCurrentTimeStamp();
+                            Process snap = rt.exec("raspivid -n --timeout 7000 --output ../video_" + date + ".h264");
                             greenLED.toggle();
                             snap.waitFor();
                             greenLED.toggle();//led off after taking video
@@ -151,6 +150,13 @@ public class BadgeTest {
             return;
         }
     }
+    
+public static String getCurrentTimeStamp() {
+    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+    Date now = new Date();
+    String strDate = sdfDate.format(now);
+    return strDate;
+}
 
 }
 
