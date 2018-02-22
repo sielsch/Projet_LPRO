@@ -1,17 +1,29 @@
 package controller;
 
+import java.awt.Choice;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import model.Employe;
 import model.EmployeDAO;
+import model.Fonction;
+import model.FonctionDAO;
 
 public class EmployeController {
 
@@ -43,7 +55,8 @@ public class EmployeController {
     private TableColumn<Employe, Integer> idFonctionColumn;
     @FXML
     private TableColumn<Employe, String> libelleFonctionColumn;
-    
+    @FXML
+    private ChoiceBox<Fonction> listFonctionBtn;
     
   //Initializing the controller class.
     //This method is automatically called after the fxml file has been loaded.
@@ -65,7 +78,7 @@ public class EmployeController {
         passwordColumn.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
        idFonctionColumn.setCellValueFactory(cellData -> cellData.getValue().idFonctionProperty().asObject());
        libelleFonctionColumn.setCellValueFactory(cellData -> cellData.getValue().libelleFonctinoProperty());
-       
+       populateFonctionEditList();
     }
  
     
@@ -159,19 +172,66 @@ public class EmployeController {
             resultArea.setText("Problem occurred while inserting employee " + e);
             throw e;
         }
+        employeTable.refresh();
     }
  
     //Delete an employee with a given employee Id from DB
     @FXML
-    private void deleteEmployee (ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    private void deleteEmploye (ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         try {
-            EmployeDAO.deleteEmpWithId(numBadgeText.getText());
+//            EmployeDAO.deleteEmpWithId(numBadgeText.getText());
+            EmployeDAO.deleteEmpWithId(employeTable.getSelectionModel().getSelectedItem().getNumBadge());
             resultArea.setText("Employee deleted! Employee id: " + numBadgeText.getText() + "\n");
         } catch (SQLException e) {
             resultArea.setText("Problem occurred while deleting employee " + e);
             throw e;
         }
+        employeTable.refresh();
     }
+    
+    @FXML
+    private void updateEmploye (ActionEvent actionEvent){
+    	
+    }
+    
+    public void populateFonctionEditList(){
+   try {
+	listFonctionBtn.getItems().addAll(FonctionDAO.searchFonctions());
+	listFonctionBtn.setConverter(new StringConverter<Fonction>() {
+		
+		@Override
+		public String toString(Fonction fonction) {
+			return fonction.getLibelleFonction();
+		}
+		
+		@Override
+		public Fonction fromString(String string) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	});
+} catch (ClassNotFoundException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+    }
+    
+    
+//    private void showWindow(String message) throws IOException {
+//        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateEmployeDialogView.fxml"));
+//        loader.setController(new DialogController(message));
+//        final Parent root = loader.load();
+//        final Scene scene = new Scene(root, 250, 150);
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.initOwner(emailField.getScene().getWindow());
+//        stage.setScene(scene);
+//        stage.show();
+//    }
     
     
     

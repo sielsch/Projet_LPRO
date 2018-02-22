@@ -40,7 +40,7 @@ public class Employe {
 	}
 
 	public void setNom(String nom) {
-		this.nom.set("nom");
+		this.nom.set(nom);
 	}
 
 	public StringProperty nomProperty(){
@@ -97,5 +97,7 @@ public class Employe {
 		return libelleFonction;
 	}
 	
-	
+	public String toString(){
+		return libelleFonction.get();
+	}
 }

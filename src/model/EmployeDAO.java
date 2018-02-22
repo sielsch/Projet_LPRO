@@ -89,12 +89,8 @@ public class EmployeDAO{
 	 
 	 public static void deleteEmpWithId (String numBadge) throws SQLException, ClassNotFoundException {
 
-	        String delete =
-	                "BEGIN\n" +
-	                        "   DELETE FROM employes\n" +
-	                        "         WHERE numBadge ="+ numBadge +";\n" +
-	                        "   COMMIT;\n" +
-	                        "END;";
+	        String delete = "delete from employes where numBadge='"+numBadge+"';";
+	               
 	 
 
 	        try {
@@ -124,6 +120,9 @@ public class EmployeDAO{
 	            throw e;
 	        }
 	    }
+	    
+	    
+
 	}
 	 
 	 
