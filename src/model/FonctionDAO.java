@@ -44,4 +44,27 @@ public class FonctionDAO {
 		return fonctionList;
 	}
 
+	public static Fonction searchFonctionById(int idFonction) throws ClassNotFoundException, SQLException{
+		String select="select * from Fonctions where idFonction="+idFonction+";";
+		 try {
+	            ResultSet rsFonction = DBUtil.dbExecuteQuery(select); 
+	            Fonction fonction = getFonctionFromResultSet(rsFonction);
+	            return fonction;
+	        } catch (SQLException e) {
+	            System.out.println("While searching a fonction with " + idFonction + " id, an error occurred: " + e);
+	            //Return exception
+	            throw e;
+	        }
+		
+	}
+	
+	private static Fonction getFonctionFromResultSet(ResultSet rs) throws SQLException{
+		 Fonction fonction = null;
+	        if (rs.next()) {
+	        	fonction = new Fonction();
+	        	fonction.setIdFonction(rs.getInt("idFonction"));
+	        	fonction.setLibelleFonction(rs.getString("libelleFonction"));
+	        }
+	        return fonction;
+	}
 }

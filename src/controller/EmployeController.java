@@ -18,7 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import model.Employe;
 import model.EmployeDAO;
@@ -38,9 +40,9 @@ public class EmployeController {
     @FXML
     private TextField passwordText;
     @FXML
-    private TextField numBadgeTextSearch;
-    @FXML
-    private TextField nomSearch;
+	private TextField numBadgeSearchText; 	
+	@FXML
+	private TextField nomSearchText;
     @FXML
     private TableView<Employe> employeTable;
     @FXML
@@ -85,9 +87,9 @@ public class EmployeController {
     
   //Search an employee
     @FXML
-    private void searchEmploye (ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
+    private void searchEmployes (ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
         try {
-        	Employe emp = EmployeDAO.searchEmploye(numBadgeText.getText());
+        	ObservableList<Employe> employesList = EmployeDAO.searchEmployeByNomAndNum(numBadgeSearchText.getText(), nomSearchText.getText());
 //            //Get Employee information
 //        	if(!numBadgeTextSearch.getText().equals("") && nomSearch.getText().equals("")){
 //        		System.out.println("chaine non vide");
@@ -99,7 +101,8 @@ public class EmployeController {
 //        	}
              
             //Populate Employee on TableView and Display on TextArea
-            populateAndShowEmploye(emp);
+            populateEmployees(employesList);
+            employeTable.refresh();
         } catch (SQLException e) {
             e.printStackTrace();
             resultArea.setText("Error occurred while getting employee information from DB.\n" + e);
@@ -149,8 +152,6 @@ public class EmployeController {
     @FXML
     private void populateEmployees (ObservableList<Employe> empData) throws ClassNotFoundException {
         //Set items to the employeeTable
-    	System.out.println(employeTable);
-    	System.out.println(empData);
         employeTable.setItems(empData);
     }
     
@@ -191,7 +192,12 @@ public class EmployeController {
     
     @FXML
     private void updateEmploye (ActionEvent actionEvent){
-    	
+    	try {
+			showWindow(employeTable.getSelectionModel().getSelectedItem());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public void populateFonctionEditList(){
@@ -220,18 +226,22 @@ public class EmployeController {
     }
     
     
-//    private void showWindow(String message) throws IOException {
-//        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateEmployeDialogView.fxml"));
-//        loader.setController(new DialogController(message));
-//        final Parent root = loader.load();
-//        final Scene scene = new Scene(root, 250, 150);
-//        Stage stage = new Stage();
+    private void showWindow(Employe employe) throws IOException {
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateEmployeDialogView.fxml"));
+        UpdateEmployeController controller = new UpdateEmployeController(employe, this);
+        loader.setController(controller);
+        final Parent root = loader.load();
+        final Scene scene = new Scene(root);
+        Stage stage = new Stage();
 //        stage.initModality(Modality.APPLICATION_MODAL);
 //        stage.initStyle(StageStyle.UNDECORATED);
-//        stage.initOwner(emailField.getScene().getWindow());
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+        stage.setTitle("Modifier Employe");
+        stage.initOwner(numBadgeText.getScene().getWindow());
+        stage.setScene(scene);
+        controller.setDialogStage(stage);
+        
+        stage.show();
+    }
     
     
     

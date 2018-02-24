@@ -30,6 +30,27 @@ public class EmployeDAO{
         }
     }
 	
+	public static ObservableList<Employe> searchEmployeByNomAndNum(String numBadge, String nom) throws ClassNotFoundException, SQLException{
+		String select ="select numBadge, nom, prenom, password, employes.idFonction, libelleFonction from Employes"
+				+ " inner join Fonctions on Employes.idFonction=Fonctions.idFonction"
+				+ " where numBadge like '%"+numBadge+"%' AND nom like '%"+nom+"%';"; 
+		
+		try {
+            //Get ResultSet from dbExecuteQuery method
+            ResultSet rsEmps = DBUtil.dbExecuteQuery(select);
+ 
+            //Send ResultSet to the getEmployeeList method and get employee object
+            ObservableList<Employe> empList = getEmployeeList(rsEmps);
+ 
+            //Return employee object
+            return empList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has been failed: " + e);
+            //Return exception
+            throw e;
+        }
+	}
+	
 	
 	private static Employe getEmployeFromResultSet(ResultSet rs) throws SQLException
     {
@@ -121,6 +142,12 @@ public class EmployeDAO{
 	        }
 	    }
 	    
+	    
+	    public static void updateEmploye(String numBadge, String nom, String prenom, String password, int idFonction) throws ClassNotFoundException, SQLException{
+	    	String update="Update Employes set nom='"+nom+"', prenom='"+prenom+"', password='"+password+"',idFonction="+idFonction
+	    			+ "where numBadge='"+numBadge+"';";
+	    	DBUtil.dbExecuteUpdate(update);
+	    }
 	    
 
 	}

@@ -39,4 +39,37 @@ public class Fonction {
 	public IntegerProperty idFonctionProperty(){
 		return idFonction;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idFonction == null) ? 0 : idFonction.hashCode());
+		result = prime * result + ((libelleFonction == null) ? 0 : libelleFonction.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fonction other = (Fonction) obj;
+		if (idFonction == null) {
+			if (other.idFonction != null)
+				return false;
+		} else if (! (idFonction.get() == (other.idFonction.get())))
+			return false;
+		if (libelleFonction == null) {
+			if (other.libelleFonction != null)
+				return false;
+		} else if (!libelleFonction.get().equals(other.libelleFonction.get()))
+			return false;
+		return true;
+	}
+	
+	
 }

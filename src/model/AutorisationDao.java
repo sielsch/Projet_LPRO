@@ -13,7 +13,7 @@ public class AutorisationDao {
 
 		String select = "select AutorisationAcces.numBadge, employes.nom, AutorisationAcces.idZone, zones.libelleZone "
 				+ "from AutorisationAcces " + "inner join Employes on Employes.numBadge=AutorisationAcces.numBadge "
-				+ "inner join Zones on Zones.idZone=AutorisationAcces.idZone" + "where Autorisation.idZone=" + numZone
+				+ "inner join Zones on AutorisationAcces.idZone=zones.idZone" + "where Autorisation.idZone=" + numZone
 				+ ";";
 
 		try {
@@ -95,5 +95,62 @@ public class AutorisationDao {
 
 		return autorisationList;
 
+	}
+	
+	public static void insertAutorisation(String numBadge,int idZone ){
+		String insert="INSERT into AutorisationAcces values ('"+numBadge+"',"+idZone+");";
+		try {
+			DBUtil.dbExecuteUpdate(insert);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static ObservableList<Autorisation> searchAutorisationByBadgeZone(String numBadge, int idZone) throws ClassNotFoundException, SQLException{
+		String select ="select autorisationAcces.numBadge, nom, libelleZone, autorisationAcces.idZone from AutorisationAcces"
+				+ " inner join Employes on Employes.numBadge=AutorisationAcces.numBadge "
+				+ " inner join Zones on AutorisationAcces.idZone=Zones.idZone "
+				+ " where AutorisationAcces.numBadge like '%"+numBadge+"%' AND AutorisationAcces.idZone="+idZone+";"; 
+		
+		try {
+            //Get ResultSet from dbExecuteQuery method
+            ResultSet rs = DBUtil.dbExecuteQuery(select);
+ 
+            //Send ResultSet to the getEmployeeList method and get employee object
+            ObservableList<Autorisation> autorisationList = getAutorisationList(rs);
+ 
+            //Return employee object
+            return autorisationList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has been failed: " + e);
+            //Return exception
+            throw e;
+        }
+	}
+	
+	public static ObservableList<Autorisation> searchAutorisationByBadge(String numBadge) throws ClassNotFoundException, SQLException{
+		String select ="select autorisationAcces.numBadge, nom, libelleZone, autorisationAcces.idZone from AutorisationAcces"
+				+ " inner join Employes on Employes.numBadge=AutorisationAcces.numBadge "
+				+ " inner join Zones on AutorisationAcces.idZone=Zones.idZone "
+				+ " where AutorisationAcces.numBadge like '%"+numBadge+"%' ;"; 
+		
+		try {
+            //Get ResultSet from dbExecuteQuery method
+            ResultSet rs = DBUtil.dbExecuteQuery(select);
+ 
+            //Send ResultSet to the getEmployeeList method and get employee object
+            ObservableList<Autorisation> autorisationList = getAutorisationList(rs);
+ 
+            //Return employee object
+            return autorisationList;
+        } catch (SQLException e) {
+            System.out.println("SQL select operation has been failed: " + e);
+            //Return exception
+            throw e;
+        }
 	}
 }

@@ -2,6 +2,8 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,5 +55,124 @@ public class HistoriqueDAO {
 		DBUtil.dbExecuteUpdate(insert);
 		
 	}
+	
+	public static ObservableList<Historique> searchHistorique(String numBadge, int idZone, LocalDate dateMin,
+			LocalDate dateMax) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%' and DateAccesZone.idZone="+idZone
+				+ " and dateAcces between '"+dateMin.format(DateTimeFormatter.ISO_LOCAL_DATE)+"' and '"+dateMax.format(DateTimeFormatter.ISO_LOCAL_DATE)+"';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	public static ObservableList<Historique> searchHistorique(String numBadge, LocalDate dateMin,
+			LocalDate dateMax) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%'"
+				+ " and dateAcces between '"+dateMin.format(DateTimeFormatter.ISO_LOCAL_DATE)+"' and '"+dateMax.format(DateTimeFormatter.ISO_LOCAL_DATE)+"';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	public static ObservableList<Historique> searchHistoriqueDateMin(String numBadge, int idZone, LocalDate dateMin) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%' and DateAccesZone.idZone="+idZone
+				+ " and dateAcces >= '"+dateMin.format(DateTimeFormatter.ISO_LOCAL_DATE)+"';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	public static ObservableList<Historique> searchHistoriqueDateMax(String numBadge, int idZone, 
+			LocalDate dateMax) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%' and DateAccesZone.idZone="+idZone
+				+ " and dateAcces <= '"+dateMax.format(DateTimeFormatter.ISO_LOCAL_DATE)+"';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	public static ObservableList<Historique> searchHistoriqueDateMin(String numBadge, LocalDate dateMin) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%' and "
+				+ " dateAcces >= '"+dateMin.format(DateTimeFormatter.ISO_LOCAL_DATE)+"';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	public static ObservableList<Historique> searchHistoriqueDateMax(String numBadge, 
+			LocalDate dateMax) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%' and "
+				+ " dateAcces <= '"+dateMax.format(DateTimeFormatter.ISO_LOCAL_DATE)+"';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	
+	public static ObservableList<Historique> searchHistorique(String numBadge, int idZone) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%' and DateAccesZone.idZone="+idZone
+				+";";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+	
+	public static ObservableList<Historique> searchHistoriqueByNumBadge(String numBadge) throws ClassNotFoundException, SQLException{
+		String select="select DateAccesZone.numBadge, employes.nom, DateAccesZone.idZone, zones.libelleZone, dateAcces "
+				+ "from DateAccesZone "
+				+ "inner join Employes on Employes.numBadge=DateAccesZone.numBadge "
+				+ "inner join Zones on Zones.idZone=DateAccesZone.idZone "
+				+ "where DateAccesZone.numBadge like '%"+numBadge+"%';";
+		try{
+			ResultSet resultSet = DBUtil.dbExecuteQuery(select);
+			return getHistoriqueList(resultSet);
+		} catch (SQLException e){
+			throw e;
+		}
+	}
+
 	
 }
