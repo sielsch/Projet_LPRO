@@ -145,7 +145,8 @@ public class EmployeDAO{
 	    
 	    public static void updateEmploye(String numBadge, String nom, String prenom, String password, int idFonction) throws ClassNotFoundException, SQLException{
 	    	String update="Update Employes set nom='"+nom+"', prenom='"+prenom+"', password='"+password+"',idFonction="+idFonction
-	    			+ "where numBadge='"+numBadge+"';";
+	    			+ " where numBadge='"+numBadge+"';";
+	    	System.out.println(update);
 	    	DBUtil.dbExecuteUpdate(update);
 	    }
 	    

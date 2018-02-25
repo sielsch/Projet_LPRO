@@ -1,8 +1,12 @@
 package util;
 
 import java.sql.*;
+import java.util.Properties;
+
 import com.mysql.jdbc.Driver;
 import com.sun.rowset.CachedRowSetImpl;
+
+import controller.RootLayoutController;
 
 /**
  * Created by ONUR BASKIRT on 22.02.2016.
@@ -21,26 +25,36 @@ public class DBUtil {
  
  
     //Connect to DB
-    public static void dbConnect() throws SQLException, ClassNotFoundException {
+    public static boolean dbConnect() throws SQLException, ClassNotFoundException {
+    	
+    	Properties properties = ConfigUtil.getDbProperty();
+    	if(properties!=null){
+    		try {
+                Class.forName(JDBC_DRIVER);
+            } catch (ClassNotFoundException e) {
+                System.out.println("Where is your Mysql JDBC Driver?");
+                e.printStackTrace();
+                throw e;
+            }
+     
+            System.out.println("Mysql JDBC Driver Registered!");
+     
+            //Establish the Oracle Connection using Connection String
+            try {
+//                conn = DriverManager.getConnection("jdbc:mysql://localhost:8889/projet_LPRO","root", "root");
+                conn = DriverManager.getConnection(properties.getProperty("server"),properties.getProperty("user"), properties.getProperty("password"));
+            } catch (SQLException e) {
+                System.out.println("Connection Failed! Check output console" + e);
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+    	} else {
+    		System.out.println("vous devez configurer la bdd");
+    		return false;
+    	}
         //Setting Oracle JDBC Driver
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Where is your Mysql JDBC Driver?");
-            e.printStackTrace();
-            throw e;
-        }
- 
-        System.out.println("Mysql JDBC Driver Registered!");
- 
-        //Establish the Oracle Connection using Connection String
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:8889/projet_LPRO","root", "root");
-        } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console" + e);
-            e.printStackTrace();
-            throw e;
-        }
+        
     }
  
     //Close Connection
@@ -62,7 +76,7 @@ public class DBUtil {
         CachedRowSetImpl crs = null;
         try {
             //Connect to DB (Establish Oracle Connection)
-            dbConnect();
+//            dbConnect();
             System.out.println("Select statement: " + queryStmt + "\n");
  
             //Create statement
@@ -89,7 +103,7 @@ public class DBUtil {
                 stmt.close();
             }
             //Close connection
-            dbDisconnect();
+//            dbDisconnect();
         }
         //Return CachedRowSet
         return crs;
@@ -101,7 +115,7 @@ public class DBUtil {
         Statement stmt = null;
         try {
             //Connect to DB (Establish Oracle Connection)
-            dbConnect();
+ //           dbConnect();
             //Create Statement
             stmt = conn.createStatement();
             //Run executeUpdate operation with given sql statement
@@ -115,7 +129,7 @@ public class DBUtil {
                 stmt.close();
             }
             //Close connection
-            dbDisconnect();
+//            dbDisconnect();
         }
     }
 }
