@@ -7,13 +7,14 @@ import com.pi4j.util.CommandArgumentParser;
 import com.pi4j.util.Console;
 import java.sql.*;
 import util.DBUtil;
-import java.io.IOException;
+import java.io.*;
+import java.net.*;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
-public class BadgeVerif {
+public class BadgeVerifV2 {
 
     /**
      * This example program supports the following optional command
@@ -28,19 +29,20 @@ public class BadgeVerif {
      */
     //ID ZONE 
     private static final Integer IDZONE = 1;
-    private static final String PORT_PC_VIGILE = "1234";
-    private static final String IP_PC_VIGILE = "localhost";
+    private static final int PORT_PC_VIGILE = 1234;
+    private static final String IP_PC_VIGILE = "192.168.0.19";
+    private static DataOutputStream dos = null;
+    private static final int tailleBuffer = 2048;
+    //communication socket for video sending
+    private static  Socket SocketCommu = null;       
+    //streams for video sending
+    private static OutputStream os;
+            
 
 
     public static void main(String args[]) throws InterruptedException, IOException {
-        //communication socket for video sending
-        Socket SocketCommu = null;       
-        //streams for video sending
-        OutputStream os;
-        private static DataOutputStream dos = null;
-        //buffer used for sending video to vigil pc
-        int tailleBuffer = 2048;
-
+       
+        initConnexion();
     
         
 
@@ -90,14 +92,14 @@ public class BadgeVerif {
                             console.box("ACCESS GRANTED");
                             DBUtil.insertHistoriqueNow(idBadge,IDZONE);
                             Runtime rt = Runtime.getRuntime();
-                            String videoName = "../video_" + this.getCurrentTimeStamp()+".h264";
-                            Process snap = rt.exec("raspivid -n --timeout 7000 --output "+ videoName);
+                            String videoName = "../video_" + getCurrentTimeStamp()+".h264";
+                            Process snap = rt.exec("raspivid  --timeout 7000 --output "+ videoName);
                             greenLED.toggle();
                             snap.waitFor();
                             greenLED.toggle();//led off after taking video
                             System.out.println("--> green LED state should be : OFF and security video taken");
-                            this.sendVideo(videoname);
-
+                            sendVideo(videoName);
+                            
                         } else {
                             redLED.toggle();
                             console.box("ACCESS DENIED weird");
@@ -128,17 +130,7 @@ public class BadgeVerif {
         });
 
         try {
-            //init connection
-            InetSocketAddress sockaddrServ = new InetSocketAddress(ipServ, portServ);
-
-            SocketCommu = new Socket();
-            SocketCommu.connect(sockaddrServ);
-
-             dos = new DataOutputStream(new BufferedOutputStream(SocketCommu.getOutputStream()));
-
-
-
-            // create serial config object
+         // create serial config object
             SerialConfig config = new SerialConfig();
 
             // serial settings (device, baud rate, flow control, etc)
@@ -195,48 +187,56 @@ public static String getCurrentTimeStamp() {
     return strDate;
 }
 
-public static void sendVideo(String videoname){
+public static void sendVideo(String videoName){
     
     try{
-                            File filetoread = new File(videoName);
+                            File filetoread = new File(videoName);                            
 
-                            byte[] temp = new byte[tailleBuffer];
-
-                            dos.writeUTF(t); // on envoie le nom du fichier à écrire
+                            dos.writeUTF(videoName); // on envoie le nom du fichier à écrire
                             dos.flush(); // on vide le tampon
 
                             dos.writeLong(filetoread.length());
                             dos.flush();
+                            
+                            FileInputStream fis = new FileInputStream(filetoread);                            
+                            
+                            byte[] temp = new byte[tailleBuffer];
 
-                            int taille, count = 0, max = 1, min = (int) Double.POSITIVE_INFINITY, tailleFichier = 0;
+                            int taille;
 
                             while ((taille = fis.read(temp)) != -1) {
                                 dos.write(temp, 0, taille);
-                                tailleFichier += taille;
-                                count++;
-                                System.out.print(taille + " ");
-
-                                if (count % 50 == 0) {
-                                    System.out.println();
-                                }
-
-                                if (taille > max) {
-                                    max = taille;
-                                }
-                                if (taille < min) {
-                                    min = taille;
-                                }
 
                                 dos.flush();
                             }
 
-                            System.out.println("\nEnvoyé en " + count + " fois, Max : " + max + ", Min : " + min + "\nNombre d'octet total envoyé : " + tailleFichier + " Taille du fichier de base : " + filetoread.length());
+                            System.out.println("Video sent to post vigil");
 
                             fis.close();
     } catch (IOException e) {
-                System.out.println("Erreur IO");
+                System.out.println("Erreur IO video not sent");
+    }catch (NullPointerException e) {
+                System.out.println("Erreur IO video won't be sent");
+                initConnexion();
+            }
+            
+}
+
+public static void initConnexion(){
+        
+            try{        
+            //init connection
+            InetSocketAddress sockaddrServ = new InetSocketAddress(IP_PC_VIGILE , PORT_PC_VIGILE );
+
+            SocketCommu = new Socket();
+            SocketCommu.connect(sockaddrServ);
+
+             dos = new DataOutputStream(new BufferedOutputStream(SocketCommu.getOutputStream()));
+               } catch (IOException e) {
+                System.out.println("Erreur IO can't reach vigil client");
 
             }
+           
 }
 
 }
