@@ -23,14 +23,11 @@
       </VBox>
       <VBox layoutX="9.0" layoutY="28.0" prefWidth="67.0" spacing="12.0">
          <children>
-            <Label text="NumBadge" />
-            <Label prefHeight="31.0" prefWidth="50.0" text="Zone" />
             <Label />
          </children>
       </VBox>
       <Separator layoutX="7.0" layoutY="14.0" prefHeight="4.0" prefWidth="600.0" />
-      <Separator layoutX="180.0" layoutY="14.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
-      <TableView fx:id="autorisationTable" editable="true" layoutX="220.0" layoutY="102.0" prefHeight="234.0" prefWidth="393.0" tableMenuButtonVisible="true">
+      <TableView fx:id="autorisationTable" editable="true" layoutX="220.0" layoutY="102.0" prefHeight="232.0" prefWidth="399.0" tableMenuButtonVisible="true">
         <columns>
             <TableColumn fx:id="numBadgeAutorisationColumn" prefWidth="57.0" text="Badge" />
           <TableColumn fx:id="nomAutorisationColumn" prefWidth="75.0" text="Nom" />
@@ -38,17 +35,19 @@
             <TableColumn fx:id="numZoneAutorisationColumn" prefWidth="75.0" text="N°Zone" />
         </columns>
       </TableView>
-      <Button fx:id="searchEmpsBtn" layoutX="472.0" layoutY="347.0" mnemonicParsing="false" onAction="#searchAutorisations" prefHeight="25.0" prefWidth="139.0" text="Voir Autorisations" />
-      <Button layoutX="497.0" layoutY="55.0" mnemonicParsing="false" onAction="#searchAutorisation" text="Rechercher" />
-      <ChoiceBox fx:id="zoneAutorisationChoice" layoutX="83.0" layoutY="60.0" prefHeight="27.0" prefWidth="110.0" />
-      <TextField fx:id="numBadgeAutorisationText" layoutX="83.0" layoutY="25.0" prefHeight="27.0" prefWidth="110.0" />
-      <Button layoutX="43.0" layoutY="117.0" mnemonicParsing="false" onAction="#addAutorisation" text="Ajouter Autorisation" />
+      <Button fx:id="searchEmpsBtn" layoutX="480.0" layoutY="363.0" mnemonicParsing="false" onAction="#searchAutorisations" prefHeight="25.0" prefWidth="139.0" text="Voir Autorisations" />
+      <Button layoutX="530.0" layoutY="55.0" mnemonicParsing="false" onAction="#searchAutorisation" text="Rechercher" />
+      <ChoiceBox fx:id="zoneAutorisationChoice" layoutX="83.0" layoutY="104.0" prefHeight="27.0" prefWidth="110.0" />
+      <TextField fx:id="numBadgeAutorisationText" layoutX="83.0" layoutY="55.0" prefHeight="27.0" prefWidth="110.0" />
+      <Button layoutX="43.0" layoutY="167.0" mnemonicParsing="false" onAction="#addAutorisation" text="Ajouter Autorisation" />
       <Label layoutX="349.0" layoutY="60.0" text="Zone " />
       <ChoiceBox fx:id="zoneAutorisationSearchChoice" layoutX="384.0" layoutY="55.0" prefHeight="27.0" prefWidth="89.0" />
-      <Separator layoutX="199.0" layoutY="24.0" orientation="VERTICAL" prefHeight="384.0" prefWidth="7.0">
+      <Separator layoutX="199.0" layoutY="26.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="7.0">
          <opaqueInsets>
             <Insets top="1.0" />
          </opaqueInsets>
       </Separator>
+      <Label layoutX="18.0" layoutY="102.0" prefHeight="31.0" prefWidth="50.0" text="Zone" />
+      <Label layoutX="9.0" layoutY="60.0" text="NumBadge" />
    </children>
 </AnchorPane>

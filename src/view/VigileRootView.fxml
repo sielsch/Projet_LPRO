@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="991.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="329.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MediaView fx:id="videoView" fitHeight="500.0" fitWidth="600.0" layoutX="116.0" layoutY="23.0" />
+            <HBox layoutX="218.0" layoutY="581.0" prefHeight="32.0" prefWidth="395.0" spacing="20.0">
+               <children>
+                  <Button fx:id="precedentBtn" mnemonicParsing="false" onAction="#precedent" text="Précédente" />
+                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playVideo" text="Play" />
+                  <Button mnemonicParsing="false" text="Pause" />
+                  <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stopVideo" text="Stop" />
+                  <Button fx:id="suivantBtn" mnemonicParsing="false" onAction="#suivant" text="Suivante" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="88.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="rechercherBtn" layoutX="559.0" layoutY="31.0" mnemonicParsing="false" onAction="#rechercher" text="Rechercher" />
+         </children>
+      </AnchorPane>
+   </bottom>
+   <left>
+      <TableView fx:id="videoTable" prefHeight="679.0" prefWidth="161.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="nomVideoColumn" prefWidth="75.0" text="nom" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </left>
+</BorderPane>

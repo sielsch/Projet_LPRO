@@ -26,7 +26,7 @@ public class clavierTactileMain extends Application {
 		this.primaryStage = primaryStage;
 
 		// Optional: Set a title for primary stage
-		this.primaryStage.setTitle("SW Test Academy - Sample JavaFX App");
+		this.primaryStage.setTitle("Authentification");
 
 		// 2) Initialize RootLayout
 		initLayout();

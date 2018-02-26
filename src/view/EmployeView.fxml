@@ -12,7 +12,7 @@
 <!--       <Button fx:id="searchEmpBtn" layoutX="194.0" layoutY="70.0" mnemonicParsing="false" onAction="#searchEmployee" prefHeight="25.0" prefWidth="56.0" text="Search" /> -->
       <Button fx:id="deleteEmpBtn" layoutX="560.0" layoutY="345.0" mnemonicParsing="false" onAction="#deleteEmploye" prefHeight="27.0" prefWidth="96.0" text="Suprimer" />
       <Button fx:id="updateEmpBtn" layoutX="466.0" layoutY="345.0" mnemonicParsing="false" onAction="#updateEmploye" prefHeight="27.0" prefWidth="76.0" text="Modifier" />
-      <Button fx:id="addEmpBtn" layoutX="91.0" layoutY="196.0" mnemonicParsing="false" onAction="#insertEmployee" text="Ajouter Employe" />
+      <Button fx:id="addEmpBtn" layoutX="77.0" layoutY="196.0" mnemonicParsing="false" onAction="#insertEmployee" text="Ajouter Employe" />
       <TextArea fx:id="resultArea" layoutX="8.0" layoutY="264.0" prefHeight="85.0" prefWidth="167.0" wrapText="true" />
       <Label layoutX="9.0" layoutY="242.0" text="Result Console">
          <font>
@@ -44,8 +44,8 @@
           <TableColumn fx:id="nomColumn" prefWidth="51.0" text="Nom" />
           <TableColumn fx:id="prenomColumn" prefWidth="68.0" text="Prenom" />
             <TableColumn fx:id="passwordColumn" prefWidth="94.0" text="Mot de passe" />
-            <TableColumn fx:id="idFonctionColumn" prefWidth="34.0" text="Fonction" />
             <TableColumn fx:id="libelleFonctionColumn" prefWidth="130.0" text="libelle Fonction" />
+            <TableColumn fx:id="idFonctionColumn" prefWidth="34.0" text="Fonction" />
         </columns>
       </TableView>
       <Button fx:id="searchEmpsBtn" layoutX="224.0" layoutY="345.0" mnemonicParsing="false" onAction="#searchEmployees" prefHeight="27.0" prefWidth="222.0" text="Afficher tout les employés" />

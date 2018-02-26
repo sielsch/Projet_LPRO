@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane prefHeight="236.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClavierTactileController">
+<BorderPane prefHeight="314.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClavierTactileController">
    <bottom>
-      <PasswordField fx:id="pswText" BorderPane.alignment="CENTER" />
+      <PasswordField fx:id="pswText" prefHeight="41.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane hgap="2.0" vgap="2.0" BorderPane.alignment="CENTER">
          <children>
-            <Button  mnemonicParsing="false" onAction="#write1" text="1" />
-            <Button mnemonicParsing="false" onAction="#write2" text="2" GridPane.columnIndex="1" />
-            <Button  mnemonicParsing="false" onAction="#write3" text="3" GridPane.columnIndex="2" />
-            <Button  mnemonicParsing="false" onAction="#write4" text="4" GridPane.rowIndex="1" />
-            <Button  mnemonicParsing="false" onAction="#write5" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button  mnemonicParsing="false" onAction="#write6" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button  mnemonicParsing="false" onAction="#write7" text="7" GridPane.rowIndex="2" />
-            <Button  mnemonicParsing="false" onAction="#write8" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button  mnemonicParsing="false" onAction="#write9" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button  mnemonicParsing="false" onAction="#write0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button  mnemonicParsing="false" onAction="#corriger" text="Corriger" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button  mnemonicParsing="false" onAction="#annuler" text="Annuler" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#write1" prefHeight="51.0" prefWidth="140.0" text="1" />
+            <Button mnemonicParsing="false" onAction="#write2" prefHeight="51.0" prefWidth="136.0" text="2" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" onAction="#write3" prefHeight="51.0" prefWidth="134.0" text="3" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#write4" prefHeight="51.0" prefWidth="149.0" text="4" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#write5" prefHeight="51.0" prefWidth="170.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#write6" prefHeight="51.0" prefWidth="122.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#write7" prefHeight="51.0" prefWidth="191.0" text="7" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#write8" prefHeight="51.0" prefWidth="156.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#write9" prefHeight="51.0" prefWidth="129.0" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#write0" prefHeight="50.0" prefWidth="135.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#corriger" prefHeight="123.0" prefWidth="111.0" text="Corriger" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#annuler" prefHeight="50.0" prefWidth="148.0" text="Annuler" GridPane.rowIndex="4" />
+            <Button fx:id="btnValider" mnemonicParsing="false" onAction="#valider" prefHeight="50.0" prefWidth="136.0" text="Valider" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,10 +37,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
    </center>
-   <top>
-      <Button fx:id="btnValider" mnemonicParsing="false" onAction="#valider" prefHeight="27.0" prefWidth="150.0" text="Valider" BorderPane.alignment="CENTER" />
-   </top>
 </BorderPane>

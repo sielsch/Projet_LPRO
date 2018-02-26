@@ -7,41 +7,33 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HistoriqueController">
    <children>
-      <TextField fx:id="numBadgeHistoriqueText" layoutX="193.0" layoutY="41.0" prefHeight="25.0" prefWidth="67.0" promptText="Emp ID" />
-      <Label layoutX="194.0" layoutY="21.0" text="Badge" />
-      <TextArea fx:id="resultAutorisationArea" layoutX="7.0" layoutY="250.0" prefHeight="85.0" prefWidth="167.0" wrapText="true" />
-      <Label layoutX="9.0" layoutY="231.0" text="Result Console">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
+      <TextField fx:id="numBadgeHistoriqueText" layoutX="91.0" layoutY="41.0" prefHeight="25.0" prefWidth="67.0" promptText="Emp ID" />
+      <Label layoutX="97.0" layoutY="21.0" text="Badge" />
       <VBox layoutX="97.0" layoutY="24.0" spacing="4.0">
          <children>
          </children>
       </VBox>
       <VBox layoutX="9.0" layoutY="28.0" prefWidth="67.0" spacing="12.0">
          <children>
-            <Label text="NumBadge" />
-            <Label text="Zone" />
             <Label />
          </children>
       </VBox>
       <Separator layoutY="14.0" prefHeight="4.0" prefWidth="600.0" />
-      <Separator layoutX="180.0" layoutY="14.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
-      <TableView fx:id="historiqueTable" editable="true" layoutX="193.0" layoutY="102.0" prefHeight="234.0" prefWidth="393.0" tableMenuButtonVisible="true">
+      <TableView fx:id="historiqueTable" editable="true" layoutX="91.0" layoutY="102.0" prefHeight="234.0" prefWidth="556.0" tableMenuButtonVisible="true">
         <columns>
-            <TableColumn fx:id="numBadgeHistoriqueColumn" prefWidth="57.0" text="Badge" />
-          <TableColumn fx:id="nomHistoriqueColumn" prefWidth="49.0" text="Nom" />
-          <TableColumn fx:id="libelleZoneHistoriqueColumn" prefWidth="103.0" text="Zone Autorisée" />
-            <TableColumn fx:id="numZoneHistoriqueColumn" prefWidth="90.0" text="N°Zone" />
-            <TableColumn fx:id="dateAccesHistoriqueColumn" prefWidth="109.0" text="Date Acces" />
+            <TableColumn fx:id="numBadgeHistoriqueColumn" prefWidth="93.0" text="Badge" />
+          <TableColumn fx:id="nomHistoriqueColumn" prefWidth="95.0" text="Nom" />
+          <TableColumn fx:id="libelleZoneHistoriqueColumn" prefWidth="104.0" text="Zone Autorisée" />
+            <TableColumn fx:id="numZoneHistoriqueColumn" prefWidth="74.0" text="N°Zone" />
+            <TableColumn fx:id="dateAccesHistoriqueColumn" prefWidth="166.0" text="Date Acces" />
         </columns>
       </TableView>
       <Button fx:id="searchHistoriqueBtn" layoutX="447.0" layoutY="347.0" mnemonicParsing="false" onAction="#searchHistoriques" prefHeight="25.0" prefWidth="139.0" text="Voir Autorisations" />
-      <ChoiceBox fx:id="zoneHistoriqueChoice" layoutX="276.0" layoutY="41.0" prefHeight="27.0" prefWidth="130.0" />
-      <DatePicker fx:id="dateMin" layoutX="420.0" layoutY="41.0" prefHeight="27.0" prefWidth="67.0" />
-      <DatePicker fx:id="dateMax" layoutX="503.0" layoutY="41.0" prefHeight="27.0" prefWidth="90.0" />
-      <Label layoutX="276.0" layoutY="21.0" prefHeight="17.0" prefWidth="67.0" text="Zone" />
-      <Label layoutX="420.0" layoutY="20.0" text="Acces entre :" />
-      <Button layoutX="612.0" layoutY="41.0" mnemonicParsing="false" onAction="#searchHistorique" text="Rechercher" />
+      <ChoiceBox fx:id="zoneHistoriqueChoice" layoutX="195.0" layoutY="41.0" prefHeight="27.0" prefWidth="130.0" />
+      <DatePicker fx:id="dateMin" layoutX="356.0" layoutY="41.0" prefHeight="27.0" prefWidth="67.0" />
+      <DatePicker fx:id="dateMax" layoutX="447.0" layoutY="41.0" prefHeight="27.0" prefWidth="90.0" />
+      <Label layoutX="227.0" layoutY="20.0" prefHeight="17.0" prefWidth="67.0" text="Zone" />
+      <Label layoutX="396.0" layoutY="20.0" text="Acces entre :" />
+      <Button layoutX="564.0" layoutY="41.0" mnemonicParsing="false" onAction="#searchHistorique" text="Rechercher" />
    </children>
 </AnchorPane>

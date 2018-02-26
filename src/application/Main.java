@@ -36,7 +36,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("SW Test Academy - Sample JavaFX App");
+		this.primaryStage.setTitle("Poste Administrateur");
 		initRootLayout();
 		try {
 			if(DBUtil.dbConnect()){
@@ -75,7 +75,6 @@ public class Main extends Application {
 			tabLayout = new TabPane();
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
-
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
 				@Override
