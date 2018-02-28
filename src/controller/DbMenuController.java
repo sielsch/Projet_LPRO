@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import util.ConfigUtil;
+import util.Constant;
 
 public class DbMenuController {
 
@@ -54,7 +55,7 @@ public class DbMenuController {
 //			}
 //		}
 		
-		Properties prop = ConfigUtil.getDbProperty();
+		Properties prop = ConfigUtil.getProperty(Constant.DB_CONFIG_FILES);
 		if(prop!=null){
 			serverText.setText(prop.getProperty("server"));
 			userText.setText(prop.getProperty("user"));
@@ -100,7 +101,7 @@ public class DbMenuController {
 		prop.setProperty("server", serverText.getText());
 		prop.setProperty("user", userText.getText());
 		prop.setProperty("password", userText.getText());
-		ConfigUtil.setDbProperty(prop);
+		ConfigUtil.setProperty(prop,Constant.DB_CONFIG_FILES);
 		configStage.close();
 	}
 	

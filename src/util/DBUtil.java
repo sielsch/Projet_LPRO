@@ -1,6 +1,8 @@
 package util;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.mysql.jdbc.Driver;
@@ -27,7 +29,7 @@ public class DBUtil {
     //Connect to DB
     public static boolean dbConnect() throws SQLException, ClassNotFoundException {
     	
-    	Properties properties = ConfigUtil.getDbProperty();
+    	Properties properties = ConfigUtil.getProperty(Constant.DB_CONFIG_FILES);
     	if(properties!=null){
     		try {
                 Class.forName(JDBC_DRIVER);
@@ -41,8 +43,9 @@ public class DBUtil {
      
             //Establish the Oracle Connection using Connection String
             try {
-//                conn = DriverManager.getConnection("jdbc:mysql://localhost:8889/projet_LPRO","root", "root");
-                conn = DriverManager.getConnection(properties.getProperty("server"),properties.getProperty("user"), properties.getProperty("password"));
+    //            conn = DriverManager.getConnection("jdbc:mysql://localhost:8889/projet_LPRO","root", "root");
+                conn = DriverManager.getConnection("jdbc:mysql://"+properties.getProperty("server"),properties.getProperty("user"), properties.getProperty("password"));
+    //        	 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
             } catch (SQLException e) {
                 System.out.println("Connection Failed! Check output console" + e);
                 e.printStackTrace();
@@ -132,4 +135,59 @@ public class DBUtil {
 //            dbDisconnect();
         }
     }
+    
+    public static List<String[]> dbExecuteQueryRasp(String queryStmt) throws SQLException, ClassNotFoundException {
+        //Declare statement, resultSet and CachedResultSet as null
+        Statement stmt = null;
+        ResultSet rs = null;
+        List<String[]> Values = null;
+        String[] StringArray = null;
+        try {
+            //Connect to DB (Establish Oracle Connection)
+            dbConnect();
+            System.out.println("Select statement: " + queryStmt + "\n");
+
+            //Create statement
+            stmt = conn.createStatement();
+
+            //Execute select (query) operation
+            rs = stmt.executeQuery(queryStmt);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            Values = new ArrayList<>();
+            while (rs.next()) {
+                StringArray = new String[columnsNumber];
+                for (int i = 0; i < columnsNumber; i++) {
+                    StringArray[i]=rs.getString(i+1);
+                }
+                Values.add(StringArray);
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Problem occurred at executeQuery operation : " + e);
+            throw e;
+        } finally {
+            if (rs != null) {
+                //Close resultSet
+                rs.close();
+            }
+            if (stmt != null) {
+                //Close Statement
+                stmt.close();
+            }
+            //Close connection
+            dbDisconnect();
+        }
+        //Return CachedRowSet
+        return Values;
+    }
+    
+    
+    public static void insertHistoriqueNow(String numBadge, int numZone) throws ClassNotFoundException, SQLException{
+		
+		String insert ="insert into DateAccesZone values ("+numBadge+", "+numZone+", CURRENT_TIMESTAMP);";
+		DBUtil.dbExecuteUpdate(insert);
+		
+	}
 }

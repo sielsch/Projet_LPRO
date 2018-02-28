@@ -6,36 +6,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="991.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane prefHeight="329.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="605.0" prefWidth="717.0" BorderPane.alignment="CENTER">
          <children>
-            <MediaView fx:id="videoView" fitHeight="500.0" fitWidth="600.0" layoutX="116.0" layoutY="23.0" />
-            <HBox layoutX="218.0" layoutY="581.0" prefHeight="32.0" prefWidth="395.0" spacing="20.0">
+            <MediaView fx:id="videoView" fitHeight="360.0" fitWidth="640.0" layoutX="52.0" layoutY="98.0" />
+            <HBox layoutX="190.0" layoutY="508.0" prefHeight="32.0" prefWidth="395.0" spacing="20.0">
                <children>
                   <Button fx:id="precedentBtn" mnemonicParsing="false" onAction="#precedent" text="Précédente" />
                   <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playVideo" text="Play" />
-                  <Button mnemonicParsing="false" text="Pause" />
+                  <Button mnemonicParsing="false" onAction="#pauseVideo" text="Pause" />
                   <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#stopVideo" text="Stop" />
                   <Button fx:id="suivantBtn" mnemonicParsing="false" onAction="#suivant" text="Suivante" />
                </children>
             </HBox>
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Visionner en direct" />
          </children>
       </AnchorPane>
    </center>
-   <bottom>
-      <AnchorPane prefHeight="88.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="rechercherBtn" layoutX="559.0" layoutY="31.0" mnemonicParsing="false" onAction="#rechercher" text="Rechercher" />
-         </children>
-      </AnchorPane>
-   </bottom>
    <left>
       <TableView fx:id="videoTable" prefHeight="679.0" prefWidth="161.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="nomVideoColumn" prefWidth="75.0" text="nom" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="nomVideoColumn" prefWidth="160.0" text="nom" />
         </columns>
       </TableView>
    </left>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="menuDossier" mnemonicParsing="false" onAction="#choixDossier" text="Choisir dossier vidéo" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="About">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>

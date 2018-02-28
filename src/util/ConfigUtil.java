@@ -11,13 +11,13 @@ import java.util.Properties;
 public class ConfigUtil {
 
 	
-	public static Properties getDbProperty(){
+	public static Properties getProperty(String file){
 		Properties prop = new Properties();
 		InputStream input = null;
-		File configFile = new File(Constant.DB_CONFIG_FILES);
+		File configFile = new File(file);
 		if(configFile.exists()){
 			try {
-				input = new FileInputStream(Constant.DB_CONFIG_FILES);
+				input = new FileInputStream(file);
 				prop.load(input);
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -35,12 +35,12 @@ public class ConfigUtil {
 		return null;
 	}
 	
-	public static void setDbProperty(Properties prop){
+	public static void setProperty(Properties prop, String file){
 		
 		OutputStream output = null;
 		
 		try {
-			File configFile = new File(Constant.DB_CONFIG_FILES);
+			File configFile = new File(file);
 			configFile.createNewFile();
 			output = new FileOutputStream(configFile);
 			prop.store(output, null);

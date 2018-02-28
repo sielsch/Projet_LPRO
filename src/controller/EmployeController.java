@@ -40,8 +40,7 @@ public class EmployeController {
 	private TextField numBadgeSearchText;
 	@FXML
 	private TextField nomSearchText;
-	@FXML
-	private TableView<Employe> employeTable;
+	
 	@FXML
 	private TableColumn<Employe, String> numBadgeColumn;
 	@FXML
@@ -56,7 +55,8 @@ public class EmployeController {
 	private TableColumn<Employe, String> libelleFonctionColumn;
 	@FXML
 	private ChoiceBox<Fonction> listFonctionBtn;
-
+	@FXML
+	private TableView<Employe> employeTable;
 	@FXML
 	private void initialize() {
 
