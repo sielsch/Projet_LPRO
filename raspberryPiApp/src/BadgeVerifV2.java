@@ -5,6 +5,8 @@ import com.pi4j.io.gpio.*;
 import com.pi4j.io.serial.*;
 import com.pi4j.util.CommandArgumentParser;
 import com.pi4j.util.Console;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import java.sql.*;
 import util.DBUtil;
 import java.io.*;
@@ -54,6 +56,12 @@ public class BadgeVerifV2 {
 
         // provision gpio pin #00 as an output pin and turn on LED ROUGE
         final GpioPinDigitalOutput redLED = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "redLED", PinState.LOW);
+		
+		 // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
+        final GpioPinDigitalInput pushButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
+
+        // set shutdown state for this input pin
+        pushButton.setShutdownOptions(true);
 
         // create Pi4J console wrapper/helper
         // (This is a utility class to abstract some of the boilerplate code)
@@ -68,7 +76,7 @@ public class BadgeVerifV2 {
         // create an instance of the serial communications class
         final Serial serial = SerialFactory.createInstance();
 
-// create and register the serial data listener
+		// create and register the serial data listener
         serial.addListener(new SerialDataEventListener() {
             @Override
             public void dataReceived(SerialDataEvent event) {
@@ -78,7 +86,7 @@ public class BadgeVerifV2 {
                 // buffer will continue to grow and consume memory.
                 // print out the data received to the console
                 try {
-                    Thread.sleep(1000); // pour eviter que le badge soit lu plusieurs fois
+                    Thread.sleep(2000); // pour eviter que le badge soit lu plusieurs fois
                     String idBadge = event.getHexByteString();
                     idBadge = idBadge.substring(3, 32);
                     idBadge = idBadge.replaceAll(",", "");
@@ -91,20 +99,16 @@ public class BadgeVerifV2 {
                         if (value[0].equals(idBadge) && value[1].equals(IDZONE.toString())) {                        
                             console.box("ACCESS GRANTED");
                             DBUtil.insertHistoriqueNow(idBadge,IDZONE);
-                            Runtime rt = Runtime.getRuntime();
-                            String videoName = "../video_" + getCurrentTimeStamp()+".h264";
-                            Process snap = rt.exec("raspivid  --timeout 7000 --output "+ videoName);
                             greenLED.toggle();
-                            snap.waitFor();
+                            Thread.sleep(5000); 
                             greenLED.toggle();//led off after taking video
-                            System.out.println("--> green LED state should be : OFF and security video taken");
-                            sendVideo(videoName);
+                            System.out.println("--> green LED state should be : OFF");
                             
                         } else {
                             redLED.toggle();
                             console.box("ACCESS DENIED weird");
                             System.out.println("--> red LED state should be: ON");
-                            Thread.sleep(2000);
+                            Thread.sleep(5000);
                             redLED.toggle();
                         }
 
@@ -112,7 +116,7 @@ public class BadgeVerifV2 {
                         redLED.toggle();
                         console.box("ACCESS DENIED");
                         System.out.println("--> red LED state should be: ON");
-                        Thread.sleep(2000);
+                        Thread.sleep(5000);
                         redLED.toggle();
                     }
                 } catch (SQLException e) {
@@ -127,6 +131,29 @@ public class BadgeVerifV2 {
 
                 }
             }
+        });
+        
+        
+        // create and register gpio pin listener
+        pushButton.addListener(new GpioPinListenerDigital() {
+            @Override
+            public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+                if(event.getState().isHigh()){
+                try{
+                    System.out.println("taking video");            
+                    Runtime rt = Runtime.getRuntime();
+                    String videoName = "../video_" + getCurrentTimeStamp()+".h264";
+                    Process snap = rt.exec("raspivid -n  --timeout 7000 --output "+ videoName);            
+                    snap.waitFor();
+                    sendVideo(videoName);
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                    } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                }
+            }
+
         });
 
         try {
