@@ -187,7 +187,9 @@ public class DBUtil {
     public static void insertHistoriqueNow(String numBadge, int numZone) throws ClassNotFoundException, SQLException{
 		
 		String insert ="insert into DateAccesZone values ("+numBadge+", "+numZone+", CURRENT_TIMESTAMP);";
+		dbConnect();
 		DBUtil.dbExecuteUpdate(insert);
+		dbDisconnect();
 		
 	}
 }
