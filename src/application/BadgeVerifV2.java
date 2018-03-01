@@ -55,7 +55,7 @@ public class BadgeVerifV2 {
         final GpioPinDigitalOutput greenLED = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "greenLED", PinState.LOW);
 
         // provision gpio pin #00 as an output pin and turn on LED ROUGE
-        final GpioPinDigitalOutput redLED = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "redLED", PinState.LOW);
+        //final GpioPinDigitalOutput redLED = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "redLED", PinState.LOW);
 		
 		 // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
         final GpioPinDigitalInput pushButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
